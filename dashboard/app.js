@@ -3,7 +3,7 @@ const path = require('path')
 const app = express();
 const PORT = 3000;
 
-app.use(express.static(path.join(__dirname, './views/k-wd-dashboard/public')))
+app.use(express.static(path.join(__dirname, './views/public')))
 app.set('view engine', 'ejs')
 
 const dashboardroute = require("./routers/dashboard")

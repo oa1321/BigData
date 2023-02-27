@@ -19,7 +19,7 @@ const get_main_page = async (req, res) =>{
     const u_o = await get_open_orders()
     const a_t = await get_avarge()
     const o_s = await get_stores_amount()
-    res.render('k-wd-dashboard/public/index.ejs', {top5_adds: t5a,
+    res.render('public/index.ejs', {top5_adds: t5a,
                                                     orders_by_area: t5r,
                                                     top5_lowest_time: t5c,
                                                     orders_by_time: t2d,
