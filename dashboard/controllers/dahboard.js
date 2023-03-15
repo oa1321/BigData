@@ -7,7 +7,8 @@ const {
     get_today_amount,
     get_open_orders,
     get_stores_amount,
-    get_avarge
+    get_avarge,
+    get_update_time
 
 } = require('../models/dashboard');
 const get_main_page = async (req, res) =>{
@@ -19,8 +20,7 @@ const get_main_page = async (req, res) =>{
     const u_o = await get_open_orders()
     const a_t = await get_avarge()
     const o_s = await get_stores_amount()
-    const d = new Date();
-    const t = d.toLocaleTimeString();
+    const t = await get_update_time();
     res.render('public/index.ejs', {top5_adds: t5a,
                                                     orders_by_area: t5r,
                                                     top5_lowest_time: t5c,

@@ -34,6 +34,10 @@ async function get_avarge(){
     x = client.get("avarage_time")
     return x;
 }
+async function get_update_time(){
+    x = client.get("update_time")
+    return x;
+}
 module.exports = {get_top5_add,
     get_top5_city,
     get_regins,
@@ -41,4 +45,5 @@ module.exports = {get_top5_add,
     get_today_amount,
     get_open_orders,
     get_stores_amount,
-    get_avarge};
+    get_avarge,
+    get_update_time};

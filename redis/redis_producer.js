@@ -19,8 +19,10 @@ app.get('/gen', (req, res) => {
     client.set('open_orders', open_orders)
     client.set('open_stores', open_stores)
     client.set('avarage_time', avarage_time)
-
-    res.send(`REDIS GENERATE: \norders_today set to ${orders_today}\norders_today set to ${open_orders}\norders_today set to ${open_stores}\norders_today set to ${avarage_time}\n`);
+    var d = new Date();
+    var n = d.toLocaleTimeString();
+    client.set('update_time', n)
+    res.send(`REDIS GENERATE: ${n} \norders_today set to ${orders_today}\norders_today set to ${open_orders}\norders_today set to ${open_stores}\norders_today set to ${avarage_time}\n`);
   });
 
 // create an endpoint to stop the app
