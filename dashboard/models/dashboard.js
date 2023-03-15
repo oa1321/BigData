@@ -1,3 +1,10 @@
+const redis = require('redis');
+const client = redis.createClient(6379); // create a new Redis client
+
+async function start_seq(){
+    await client.connect()
+}
+start_seq()
 async function get_top5_add(){
     return {"זייתים":30, "תירס": 20, "פטריות": 10, "אנשובי": 5, "בצל":5};
 }
@@ -12,16 +19,20 @@ async function get_times_today(){
 }
 
 async function get_today_amount(){
-    return 120;
+    x = client.get("orders_today")
+    return x;
 }
 async function get_open_orders(){
-    return 30;
+    x = client.get("open_orders")
+    return x;
 }
 async function get_stores_amount(){
-    return 18;
+    x = client.get("open_stores")
+    return x;
 }
 async function get_avarge(){
-    return 17;
+    x = client.get("avarage_time")
+    return x;
 }
 module.exports = {get_top5_add,
     get_top5_city,

@@ -19,6 +19,8 @@ const get_main_page = async (req, res) =>{
     const u_o = await get_open_orders()
     const a_t = await get_avarge()
     const o_s = await get_stores_amount()
+    const d = new Date();
+    const t = d.toLocaleTimeString();
     res.render('public/index.ejs', {top5_adds: t5a,
                                                     orders_by_area: t5r,
                                                     top5_lowest_time: t5c,
@@ -26,7 +28,8 @@ const get_main_page = async (req, res) =>{
                                                     all_orders: a_o,
                                                     unfinished: u_o,
                                                     avarege: a_t,
-                                                    open_stores: o_s
+                                                    open_stores: o_s,
+                                                    time_now: t
 
     });
 }

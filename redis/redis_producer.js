@@ -11,9 +11,16 @@ async function start_seq(){
 start_seq()
 // create an endpoint to generate a random value and save it to Redis
 app.get('/gen', (req, res) => {
-    const randomValue = Math.floor(Math.random() * 100);
-    client.set('x', randomValue)
-    res.send(`REDIS GENERATE: Value set to ${randomValue}`);
+    const orders_today = Math.floor(Math.random() * 300);
+    const open_orders = Math.floor(Math.random() * orders_today);
+    const open_stores = Math.floor(Math.random() * 30);
+    const avarage_time = Math.floor(Math.random() * 40);
+    client.set('orders_today', orders_today)
+    client.set('open_orders', open_orders)
+    client.set('open_stores', open_stores)
+    client.set('avarage_time', avarage_time)
+
+    res.send(`REDIS GENERATE: \norders_today set to ${orders_today}\norders_today set to ${open_orders}\norders_today set to ${open_stores}\norders_today set to ${avarage_time}\n`);
   });
 
 // create an endpoint to stop the app
