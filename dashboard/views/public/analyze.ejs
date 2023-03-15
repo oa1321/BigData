@@ -1,6 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+h1{
+  font-size: 30px;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.tbl-header{
+  background-color: rgba(0, 0, 0, 0.3);
+
+ }
+.tbl-content{
+  height:600px;
+  overflow-x:auto;
+  margin-top: 0px;
+ 
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+  border-bottom: solid 3px rgba(0, 0, 0, 0.4);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+section{
+  margin: 50px;
+}
+
+
+/* follow me template */
+.made-with-love {
+  margin-top: 40px;
+  padding: 10px;
+  clear: left;
+  text-align: center;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+}
+.made-with-love i {
+  font-style: normal;
+  color: #F50057;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+.made-with-love a {
+  color: #fff;
+  text-decoration: none;
+}
+.made-with-love a:hover {
+  text-decoration: underline;
+}
+
+
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>PIZZA DASHBOARD</title>
@@ -98,32 +181,7 @@
                 </div>
               </div>
 
-            <!-- Sidebar footer -->
-            <div class="flex-shrink-0 px-2 py-4 space-y-2">
-              <button
-                @click="openSettingsPanel"
-                type="button"
-                class="flex items-center justify-center w-full px-4 py-2 text-sm text-white rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring focus:ring-primary-dark focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-dark"
-              >
-                <span aria-hidden="true">
-                  <svg
-                    class="w-4 h-4 mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                    />
-                  </svg>
-                </span>
-                <span>Customize</span>
-              </button>
-            </div>
+          
           </div>
         </aside>
 
@@ -785,9 +843,102 @@
 
             <!-- Content -->
             <div class="mt-2">
+              <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
+                <div>
+                  <h6
+                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light"
+                  >
+                    Orders today
+                  </h6>
+                  <div style='float: left;'>
+                    <input type="text" id="shop" name="shop-search" placeholder= "            enter branch name" style="border: 1px solid rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;">
+                  </div>
+                  <div style='float: left;'>
+                    <input type="date" id="date" name="date-search"
+                      value="2023-03-14"
+                      min="2000-01-01" max="2050-12-31" style=" margin-top: 15px; margin-right: 15px;">
+                  </div>
+                  
+                  <div style='float: left;'>
+                    <button style="border:rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;" onclick="clickHandler()"> Search</button>
+                  </div>
+                </div>
+              </div>
+              
               <!-- State cards -->
+              <section>
+                <!--for demo wrap-->
+                <div class="tbl-header">
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                      <tr>
+                        <th>order time</th>
+                        <th>handale time</th>
+                        <th style="width:70%">toppings</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <div class="tbl-content">
+                  <table cellpadding="0" cellspacing="0" border="1">
+                    <tbody>      
+                      <tr>
+                        <th>dd/mm/yy hh:mm:ss</th>
+                        <th>minents</th>
+                        <th style="width:70%">list of toppings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr>  
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr>   
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                      <tr>
+                        <th>orddasdasdasder time</th>
+                        <th>handadasdasasdledasdsad time</th>
+                        <th>topdasdasdspings</th>
+                      </tr> 
+                    </tbody>
+                  </table>
+                </div>
+              </section>
               <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
                 <!-- Value card -->
+              
               </div>
             </div>
           </main>
@@ -1376,6 +1527,20 @@
 
     <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+    <script>
+      // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+    </script>
+
+    <script>
+      function clickHandler() {
+        alert(document.getElementById('date').value+" "+document.getElementById('shop').value);
+      }
+    </script>
+
     <script>
       const setup = () => {
         const getTheme = () => {
