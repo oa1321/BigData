@@ -848,19 +848,26 @@ section{
                   <h6
                     class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light"
                   >
-                    Orders today
+                  find connection rules 
                   </h6>
                   <div style='float: left;'>
-                    <input type="text" id="shop" name="shop-search" placeholder= "            enter branch name" style="border: 1px solid rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;">
+                    <input type="date" id="date2" name="date2-search"
+                      value="2023-03-14"
+                      min="2000-01-01" max="2050-12-31" style=" margin-top: 15px; margin-right: 15px;">
+                  </div>
+                  <div style='float: left;'>
+                    <button style="border:rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;pointer-events: none;"> from: </button> 
                   </div>
                   <div style='float: left;'>
                     <input type="date" id="date" name="date-search"
                       value="2023-03-14"
                       min="2000-01-01" max="2050-12-31" style=" margin-top: 15px; margin-right: 15px;">
                   </div>
-                  
                   <div style='float: left;'>
-                    <button style="border:rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;" onclick="clickHandler()"> Search</button>
+                    <button style="border:rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;pointer-events: none;"> to: </button>
+                  </div>
+                  <div style='float: left;'>
+                    <button style="border:rgb(0, 0, 0); margin-top: 15px; margin-right: 15px;" onclick="clickHandler()"> create model</button>
                   </div>
                 </div>
               </div>
@@ -872,9 +879,10 @@ section{
                   <table cellpadding="0" cellspacing="0" border="0">
                     <thead>
                       <tr>
-                        <th>order time</th>
-                        <th>handale time</th>
-                        <th style="width:70%">toppings</th>
+                        <th>Antecedent</th>
+                        <th>Conswquent</th>
+                        <th>Support(%)</th>
+                        <th>Confidence(%)</th>
                       </tr>
                     </thead>
                   </table>
@@ -883,54 +891,10 @@ section{
                   <table cellpadding="0" cellspacing="0" border="1">
                     <tbody>      
                       <tr>
-                        <th>dd/mm/yy hh:mm:ss</th>
-                        <th>minents</th>
-                        <th style="width:70%">list of toppings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr>  
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr>   
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
+                        <th>aaa</th>
+                        <th>bbb</th>
+                        <th>12.12</th>
+                        <th>13.123</th>
                       </tr> 
                     </tbody>
                   </table>
@@ -1534,10 +1498,10 @@ $(window).on("load resize ", function() {
   $('.tbl-header').css({'padding-right':scrollWidth});
 }).resize();
     </script>
-
+  
     <script>
       function clickHandler() {
-        alert(document.getElementById('date').value+" "+document.getElementById('shop').value);
+        alert("from" +document.getElementById('date2').value+" to"+document.getElementById('date').value);
       }
     </script>
 
