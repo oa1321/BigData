@@ -19,7 +19,10 @@ const client = new Client({
         }
       },
     });
-    return body.hits.hits;
+    const hits = body.hits.hits;
+  const sources = hits.map(hit => hit._source);
+
+    return  sources;
   }
 
 module.exports = search;

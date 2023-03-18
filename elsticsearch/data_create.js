@@ -47,7 +47,6 @@ function generateRandomOrder() {
     const stores = ["Jerusalem", "TelAviv", "Haifa", "RishonLeZion",
     "PetahTikva", "Ashdod", "Netanya", "BeerSheva", "BneiBrak",
      "Holon", "BatYam", "RamatGan", "Rehovot", "Herzliya", "KfarSaba", "Nahariya", "Modi'in-Maccabim-Re'"];
-    const areas = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
     const dates = ['2023-03-12', '2023-03-11', '2023-03-13', '2023-03-14', '2023-03-15'];
     const times = ['10:00', '11:00', '12:00', '13:00', '14:00'];
     const statuses = ['New', 'In Progress', 'Delivered'];

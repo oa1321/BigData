@@ -878,59 +878,9 @@ section{
                     </thead>
                   </table>
                 </div>
-                <div class="tbl-content">
+                <div class="tbl-content" id="results-table">
                   <table cellpadding="0" cellspacing="0" border="1">
                     <tbody>      
-                      <tr>
-                        <th>dd/mm/yy hh:mm:ss</th>
-                        <th>minents</th>
-                        <th style="width:70%">list of toppings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr>  
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr>   
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
-                      <tr>
-                        <th>orddasdasdasder time</th>
-                        <th>handadasdasasdledasdsad time</th>
-                        <th>topdasdasdspings</th>
-                      </tr> 
                     </tbody>
                   </table>
                 </div>
@@ -1536,12 +1486,32 @@ $(window).on("load resize ", function() {
 
     <script>
       function clickHandler() {
-        alert(document.getElementById('date').value+" "+document.getElementById('shop').value);
         fetch('/search/'+document.getElementById('shop').value+'/'+document.getElementById('date').value)
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error(error));
-
+  .then(response => response.json())
+  .then(data => {
+    const table = document.getElementById('results-table');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    tbody.innerHTML = '';
+    data.forEach(item => {
+      const row = tbody.insertRow(-1);
+      const storeNameCell = row.insertCell(0);
+      storeNameCell.textContent = item.time;
+      const dateCell = row.insertCell(1);
+      dateCell.textContent = item.time;
+      const toppings = [];
+      for (const [key, value] of Object.entries(item)) {
+        if (value === 'Yes') {
+          toppings.push(key);
+ 
+          }
+        }
+     const orderIdCell = row.insertCell(2);
+      orderIdCell.textContent = toppings;
+      orderIdCell.style.width= '70%'
+      console.log(toppings);
+    });
+  })
+  .catch(error => console.error(error));
       }
     </script>
 
