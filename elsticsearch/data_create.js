@@ -53,6 +53,7 @@ function generateRandomOrder() {
     const statuses = ['New', 'In Progress', 'Delivered'];
     
     const s_name = stores[Math.floor(Math.random() * stores.length)]
+    // date yyyy/mm/dd
     const order = {
       order_id: Math.floor(Math.random() * 1000000),
       store_id: ids[s_name],
