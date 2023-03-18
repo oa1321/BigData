@@ -1537,6 +1537,11 @@ $(window).on("load resize ", function() {
     <script>
       function clickHandler() {
         alert(document.getElementById('date').value+" "+document.getElementById('shop').value);
+        fetch('/search/'+document.getElementById('shop').value+'/'+document.getElementById('date').value)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+
       }
     </script>
 

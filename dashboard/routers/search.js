@@ -2,8 +2,9 @@ const express = require("express");
 
 const router = express.Router()
 
-const getMainPage = require("../controllers/search")
+const f = require("../controllers/search")
+router.route("/").get(f.get_main_page)
 
-router.route("/").get(getMainPage)
+router.route("/:shop_name/:date").get(f.get_main_page_parms)
 
 module.exports = router
