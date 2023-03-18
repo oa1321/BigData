@@ -1486,7 +1486,14 @@ $(window).on("load resize ", function() {
 
     <script>
       function clickHandler() {
-        fetch('/search/'+document.getElementById('shop').value+'/'+document.getElementById('date').value)
+        var shopName = document.getElementById('shop').value;
+        if (shopName.length === 0) {
+          shopName = "XXXXX"
+          alert('Shop name is empty');
+        } else {
+          console.log('Shop name is:', shopName);
+        }
+        fetch('/search/'+shopName+'/'+document.getElementById('date').value)
   .then(response => response.json())
   .then(data => {
     const table = document.getElementById('results-table');
@@ -1497,7 +1504,7 @@ $(window).on("load resize ", function() {
       const storeNameCell = row.insertCell(0);
       storeNameCell.textContent = item.time;
       const dateCell = row.insertCell(1);
-      dateCell.textContent = item.time;
+      dateCell.textContent = item.fin_time;
       const toppings = [];
       for (const [key, value] of Object.entries(item)) {
         if (value === 'Yes') {

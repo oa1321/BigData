@@ -4,7 +4,7 @@ const client = new Client({ node: 'http://localhost:9200' });
 async function createIndex() {
   try {
     const response = await client.indices.create({
-      index: 'pizza-data-v1',
+      index: 'pizza-data-v3',
       body: {
         mappings: {
           properties: {
@@ -14,6 +14,7 @@ async function createIndex() {
             area: { type: 'text' },
             date: { type: 'text' },
             time: { type: 'text' },
+            fin_time: {type: 'text'},
             status: { type: 'text' },
             olives: {type: 'text'},
             corn: {type: 'text'},

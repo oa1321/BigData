@@ -49,7 +49,7 @@ function generateRandomOrder() {
      "Holon", "BatYam", "RamatGan", "Rehovot", "Herzliya", "KfarSaba", "Nahariya", "Modi'in-Maccabim-Re'"];
     const dates = ['2023-03-12', '2023-03-11', '2023-03-13', '2023-03-14', '2023-03-15'];
     const times = ['10:00', '11:00', '12:00', '13:00', '14:00'];
-    const statuses = ['New', 'In Progress', 'Delivered'];
+    const statuses = ['In Progress', 'Delivered'];
     
     const s_name = stores[Math.floor(Math.random() * stores.length)]
     // date yyyy/mm/dd
@@ -60,6 +60,7 @@ function generateRandomOrder() {
       area: getRegion(s_name),
       date: dates[Math.floor(Math.random() * dates.length)],
       time: times[Math.floor(Math.random() * times.length)],
+      fin_time: 'In Progress',
       status: statuses[Math.floor(Math.random() * statuses.length)],
       olives: Math.random() < 0.5 ? 'Yes' : 'No',
       corn: Math.random() < 0.5 ? 'Yes' : 'No',
@@ -77,7 +78,7 @@ function generateRandomOrder() {
   async function uploadData() {
     for (let i = 0; i < 60; i++) {
       await client.index({
-        index: 'pizza-data-v1',
+        index: 'pizza-data-v3',
         body: generateRandomOrder(),
       });
     }
