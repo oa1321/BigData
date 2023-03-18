@@ -21,7 +21,6 @@ const client = new Client({
     });
     const hits = body.hits.hits;
     const sources = hits.map(hit => hit._source);
-    console.log(sources)
     new_sources = []
     for (let i = 0; i < sources.length; i++) {
         if(sources[i]['date'] === date_c){
