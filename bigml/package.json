@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bigml": "^1.26.0",
+    "kafkajs": "^2.2.4",
     "mongodb": "^5.1.0",
     "mongoose": "^7.0.2",
     "node-apriori": "^1.0.0",

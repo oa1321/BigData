@@ -119,7 +119,7 @@ function generateRandomOrderToday(i) {
 async function produceMessage() {
     await producer.connect()
     console.log('Producer connected')
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 2; i++) {
         const d =generateRandomOrderToday(i)
         await producer.send({
         topic: 'yqgypzag-pizza',
