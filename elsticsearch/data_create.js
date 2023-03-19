@@ -16,7 +16,7 @@ const kafka = new Kafka({
     username: 'yqgypzag',
     password: 'XzSlY0jJ2xcQdCJN5b1v6lr1WKHN6cCf'
   },
-  connectionTimeout: 30000
+  connectionTimeout: 60000
 })
 const client = new Client({
     node: " http://localhost:9200"
@@ -45,7 +45,9 @@ async function consumeMessages() {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       console.log(`Received message:`,JSON.parse(message.value.toString()))
-      uploadData(JSON.parse(message.value.toString()));
+      if (JSON.parse(message.value.toString()).status === 'Delivered'){
+         uploadData(JSON.parse(message.value.toString()));
+      }
     }
   })
 }

@@ -11,10 +11,10 @@ async function gen_ramdom_data(req,res){
   const open_orders = Math.floor(Math.random() * orders_today);
   const open_stores = Math.floor(Math.random() * 30);
   const avarage_time = Math.floor(Math.random() * 40);
-  client.set('orders_today', orders_today)
-  client.set('open_orders', open_orders)
-  client.set('open_stores', open_stores)
-  client.set('avarage_time', avarage_time)
+  client.set('orders_today', 0)
+  client.set('open_orders', 0)
+  client.set('open_stores', 17)
+  client.set('avarage_time', 0)
   var d = new Date();
   var n = d.toLocaleTimeString();
   client.set('update_time', n)
@@ -29,7 +29,7 @@ async function gen_ramdom_data(req,res){
   //cheese
   //peppers
   //tomato
-  RAND = 30
+  RAND = 0
   client.set('olives', Math.floor(Math.random() * RAND))
   client.set('corn', Math.floor(Math.random() * RAND))
   client.set('mushrooms', Math.floor(Math.random() * RAND))
@@ -49,10 +49,11 @@ async function gen_ramdom_data(req,res){
   // Loop through each city name in the array
   for (const city of cities) {
     // Generate a random number between 1 to 60
-    const randomNum = Math.floor(Math.random() * 60) + 10;
+    const randomNum = 0;
     
     // Set the random number for the city using the Redis client
     client.set(city, randomNum);
+    client.set(city+'_time', randomNum);
     }
 
 
@@ -62,10 +63,10 @@ async function gen_ramdom_data(req,res){
   // Loop through each city name in the array
   for (const regin of regins) {
     // Generate a random number between 1 to 60
-    const randomNum = Math.floor(Math.random() * 120) + 10;
+    const randomNum =0 ;
     
     // Set the random number for the city using the Redis client
-    client.set(regin, randomNum);
+    client.set(regin, 0);
     }
 
    //times
@@ -77,7 +78,7 @@ async function gen_ramdom_data(req,res){
      const randomNum = Math.floor(Math.random() * 45) + 5;
      
      // Set the random number for the city using the Redis client
-     client.set(t, randomNum);
+     client.set(t, 0);
      }
      const delay = ms => new Promise(res => setTimeout(res, ms));
      async function get_redis_data() {
