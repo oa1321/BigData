@@ -1,6 +1,23 @@
 'use strict'
 
 const { Client } = require('es7')
+const { Kafka } = require('kafkajs');
+
+
+//'yqgypzag'
+//'XzSlY0jJ2xcQdCJN5b1v6lr1WKHN6cCf
+// Set up the Kafka client
+const kafka = new Kafka({
+  clientId: 'my-app',
+  brokers: ['dory.srvs.cloudkafka.com:9094'],
+  ssl: true,
+  sasl: {
+    mechanism: 'SCRAM-SHA-512',
+    username: 'yqgypzag',
+    password: 'XzSlY0jJ2xcQdCJN5b1v6lr1WKHN6cCf'
+  },
+  connectionTimeout: 30000
+})
 const client = new Client({
     node: " http://localhost:9200"
 })
@@ -8,98 +25,29 @@ client.info({}, {}, (err, result)=>{
     if(err) {return console.error(err)}
     console.log(result.body)
 })
-const ids= {
-    "Jerusalem": 1,
-    "TelAviv": 2,
-    "Haifa": 3,
-    "RishonLeZion": 4,
-    "PetahTikva": 5,
-    "Ashdod": 6,
-    "Netanya": 7,
-    "BeerSheva": 8,
-    "BneiBrak": 9,
-    "Holon": 10,
-    "BatYam": 11,
-    "RamatGan": 12,
-    "Rehovot": 13,
-    "Herzliya": 14,
-    "KfarSaba": 15,
-    "Nahariya": 16,
-    "Modi'in-Maccabim-Re'": 17
-  }
-const regions = {
-"Haifa": ["Haifa", "Nahariya"],
-"Dan": ["TelAviv", "PetahTikva", "BneiBrak", "Holon", "BatYam", "RamatGan", "Herzliya"],
-"Center": ["Jerusalem", "Modi'in-Maccabim-Re'", "RishonLeZion", "Rehovot"],
-"North": ["KfarSaba"],
-"South": ["Ashdod", "BeerSheva", "Netanya", "Mushrooms", "Olives", "Onions", "Cheese", "Peppers", "Tomato"]
-};
-function getRegion(city) {
-for (const [region, cities] of Object.entries(regions)) {
-    if (cities.includes(city)) {
-    return region;
-    }
+// Upload the data to Elasticsearch
+async function uploadData(data) {
+  await client.index({
+    index: 'pizza-data-v5',
+    body: data,
+  });
+  console.log('Data uploaded to Elasticsearch');
 }
-return null; // city not found in any region
-}
-// Define some sample data
-function generateRandomOrder() {
-    const stores = ["Jerusalem", "TelAviv", "Haifa", "RishonLeZion",
-    "PetahTikva", "Ashdod", "Netanya", "BeerSheva", "BneiBrak",
-     "Holon", "BatYam", "RamatGan", "Rehovot", "Herzliya", "KfarSaba", "Nahariya", "Modi'in-Maccabim-Re'"];
-    const dates = ['2023-03-12', '2023-03-11', '2023-03-13', '2023-03-14', '2023-03-15'];
-    const times = ['10:00', '11:00', '12:00', '13:00', '14:00'];
-    const statuses = ['In Progress', 'Delivered'];
-    
-    const s_name = stores[Math.floor(Math.random() * stores.length)]
-    // date yyyy/mm/dd
-    const order = {
-      order_id: Math.floor(Math.random() * 1000000),
-      store_id: ids[s_name],
-      store_name: s_name,
-      area: getRegion(s_name),
-      date: dates[Math.floor(Math.random() * dates.length)],
-      time: times[Math.floor(Math.random() * times.length)],
-      fin_time: 'In Progress',
-      status: statuses[Math.floor(Math.random() * statuses.length)],
-      olives: Math.random() < 0.5 ? 'Yes' : 'No',
-      corn: Math.random() < 0.5 ? 'Yes' : 'No',
-      mushrooms: Math.random() < 0.5 ? 'Yes' : 'No',
-      anshoby: Math.random() < 0.5 ? 'Yes' : 'No',
-      onions: Math.random() < 0.5 ? 'Yes' : 'No',
-      cheese: Math.random() < 0.5 ? 'Yes' : 'No',
-      peppers: Math.random() < 0.5 ? 'Yes' : 'No',
-      tomato: Math.random() < 0.5 ? 'Yes' : 'No',
-    };
-  
-    return order;
-  }
-  // Upload the data to Elasticsearch
-  async function uploadData() {
-    for (let i = 0; i < 60; i++) {
-      await client.index({
-        index: 'pizza-data-v3',
-        body: generateRandomOrder(),
-      });
+
+// Create a Kafka consumer
+const consumer = kafka.consumer({groupId: "yqgypzag-x"})
+
+// Consume messages from the yqgypzag-default topic
+async function consumeMessages() {
+  await consumer.connect()
+  console.log('Consumer connected')
+  await consumer.subscribe({ topic: 'yqgypzag-pizza'})
+  await consumer.run({
+    eachMessage: async ({ topic, partition, message }) => {
+      console.log(`Received message:`,JSON.parse(message.value.toString()))
+      uploadData(JSON.parse(message.value.toString()));
     }
-    console.log('Data uploaded to Elasticsearch');
-  }
-  
-  // Perform a basic search
-  async function search() {
-    const { body } = await client.search({
-      index: 'pizza-data-v1',
-      body: {
-        query: {
-          match: { store_name: 'TelAviv' },
-        },
-      },
-    });
-    console.log(body.hits.hits);
-  }
-  
-  // Call the uploadData function to upload the data to Elasticsearch
-uploadData();
-  
-  // Call the search function to perform a search
-//search();
+  })
+}
+
+consumeMessages().catch(console.error)

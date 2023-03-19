@@ -7,7 +7,7 @@ const client = new Client({
   async function search(s_name, date_c) {
     console.log(s_name,date_c)
     const { body } = await client.search({
-      index: 'pizza-data-v3',
+      index: 'pizza-data-v5',
       body: {
         query: {
             bool: {

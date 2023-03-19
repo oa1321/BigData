@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "es7": "npm:@elastic/elasticsearch@^7.17.0"
+    "es7": "npm:@elastic/elasticsearch@^7.17.0",
+    "kafkajs": "^2.2.4"
   }
 }

@@ -4,7 +4,7 @@ const client = new Client({ node: 'http://localhost:9200' });
 async function createIndex() {
   try {
     const response = await client.indices.create({
-      index: 'pizza-data-v3',
+      index: 'pizza-data-v5',
       body: {
         mappings: {
           properties: {
