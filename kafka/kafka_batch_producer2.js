@@ -120,7 +120,7 @@ async function produceMessage() {
     await producer.connect()
     console.log('Producer connected')
     for (let i = 0; i < 600; i++) {
-        const d =generateRandomOrderToday(i)
+        const d =generateRandomOrder(i)
         await producer.send({
         topic: 'yqgypzag-pizza',
         messages: [

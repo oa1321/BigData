@@ -96,9 +96,12 @@ async function data_finished(data){
   var avarge_calc = await client.get(data.store_name)
   var avarge_calc2 = await client.get(data.store_name+'_time')
   total = avarge_calc * avarge_calc2 + data.fin_time
-  console.log(total/(avarge_calc2+1))
+  if (total > 90){
+    total /= 2
+  }
+  console.log(total/(avarge_calc2), avarge_calc,avarge_calc2)
   client.incr(data.store_name+'_time')
-  client.set(data.store_name, total)
+  client.set(data.store_name, total/(avarge_calc2))
 }
 async function update_data(data){
   data_unfinished(data)

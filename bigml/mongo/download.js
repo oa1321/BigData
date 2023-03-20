@@ -13,8 +13,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     toppings: [String],
     date: { type: Date, default: Date.now}
   });
+
+  const startDate = new Date('2023-03-14');
+  const endDate = new Date('2023-3-23');
   const Order = mongoose.model('Order', orderSchema);
-  const newOrder = Order.find().then((toppings) => {
-    console.log('Available orders:', toppings.length);
+  const newOrder = Order.find({ date: {  $gte: startDate, $lte: endDate }}).then((toppings) => {
+    console.log('Available orders:', toppings);
+
+    mongoose.disconnect()
   })
   .catch((err) => console.error('Error loading toppings from MongoDB', err));

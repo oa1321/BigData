@@ -12,7 +12,7 @@ const connection = new bigml.BigML(username, apiKey);
 function generateItemSets(){
     return new Promise(async (resolve,reject) => {
     var source = new bigml.Source(connection);
-      source.create('./views/data/data.csv', (error, sourceInfo) => {
+      source.create('./views/data/data2.csv', (error, sourceInfo) => {
         if (!error && sourceInfo) {
           var dataset = new bigml.Dataset(connection);
           dataset.create(sourceInfo, (error, datasetInfo) => {

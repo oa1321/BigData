@@ -8,6 +8,7 @@ const client = new Client({
     console.log(s_name,date_c)
     const { body } = await client.search({
       index: 'pizza-data-v5',
+      size: 10000,
       body: {
         query: {
             bool: {
