@@ -65,6 +65,32 @@ async function consumeMessages() {
       if(data.tomato == 'Yes'){
         list1.push('tomato')
       }
+
+      if(data.pineapple == 'Yes'){
+
+        list1.push('pineapple')
+      }
+      if(data.greenpeppers == 'Yes'){
+        list1.push('greenpeppers')
+      }
+      if(data.pepperoni == 'Yes'){
+        list1.push('pepperoni')
+      }
+      if(data.blackolives == 'Yes'){
+        list1.push('blackolives')
+      }
+      if(data.bulgarit == 'Yes'){
+        list1.push('bulgarit')
+      }
+      if(data.tuna == 'Yes'){
+        list1.push('tuna')
+      }
+      if(data.cheesemix == 'Yes'){
+        list1.push('cheesemix')
+      }
+      if(data.harifpeppers == 'Yes'){
+        list1.push('harifpeppers')
+      }
       let dateString = data.date;
     let dateParts = dateString.split("-");
     let year = parseInt(dateParts[0]);

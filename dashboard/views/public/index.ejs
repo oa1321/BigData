@@ -154,7 +154,7 @@
                   </svg>
                 </span>
               </button>
-              <div>
+              <div id="time">
                 relevnt for time:  <%-JSON.stringify(time_now) %>
               </div>
               <!-- Desktop Right buttons -->
@@ -770,7 +770,7 @@
                     >
                       Orders today
                     </h6>
-                    <span class="text-xl font-semibold"><%= all_orders %></span>
+                    <span class="text-xl font-semibold" id="all_orders"><%= all_orders %></span>
                   </div>
                   <div>
                     <span>
@@ -795,7 +795,7 @@
                     >
                       unfinished orders
                     </h6>
-                    <span class="text-xl font-semibold"><%= unfinished %></span>
+                    <span class="text-xl font-semibold" id="unfinished"><%= unfinished %></span>
                   </div>
                   <div>
                     <span>
@@ -820,7 +820,7 @@
                     >
                       avarege order time
                     </h6>
-                    <span class="text-xl font-semibold"><%= avarege%></span>
+                    <span class="text-xl font-semibold" id="avarege"><%= avarege%></span>
                   </div>
                   <div>
                     <span>
@@ -1505,6 +1505,258 @@
 
     <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+
+    <script>
+      var old_top5_adds = []
+      var old_orders_by_area = []
+      var old_top5_lowest_time = []
+      var old_orders_by_time
+      function fetchStatus() {
+              fetch('/refrash')
+              .then(response => response.json())
+              .then(data => {console.log(data)
+                document.getElementById("all_orders").textContent=data.all_orders;
+                document.getElementById("avarege").textContent=data.avarege;
+                document.getElementById("unfinished").textContent=data.unfinished;
+                document.getElementById("time").innerHTML = data.time_now;
+
+                if(!(JSON.stringify(old_top5_adds) === JSON.stringify(data.top5_adds))){
+                let l2 = [];
+                let v2 = [];
+                let top5_adds = data.top5_adds ;
+                old_top5_adds = top5_adds
+                var keys = Object.keys(top5_adds);
+                keys.forEach(function(key){
+                  l2.push(key);
+                  v2.push(parseInt(top5_adds[key]))
+                });
+                const barChart = new Chart(document.getElementById('barChart'), {
+                  type: 'bar',
+                  data: {
+                    labels: l2,
+                    datasets: [
+                      {
+                        data: v2,
+                        backgroundColor: colors.primary,
+                        hoverBackgroundColor: colors.primaryDark,
+                      },
+                    ],
+                  },
+                  options: {
+                    scales: {
+                      yAxes: [
+                        {
+                          ticks: {
+                            beginAtZero: true,
+                            stepSize: 10,
+                            fontSize: 12,
+                            fontColor: '#97a4af',
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 5,
+                          },
+                        },
+                      ],
+                      xAxes: [
+                        {
+                          
+                          ticks: {
+                            fontSize: 12,
+                            fontColor: '#97a4af',
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 1,
+                          },
+                          categoryPercentage: 0.5,
+                          maxBarThickness: '30',
+                        },
+                      ],
+                    },
+                    cornerRadius: 2,
+                    maintainAspectRatio: false,
+                    legend: {
+                      display: false,
+                    },
+                  },
+                })
+              }
+              if(!(JSON.stringify(old_orders_by_area) === JSON.stringify(data.orders_by_area))){
+                let l = [];
+                    let v = [];
+                    let orders_by_area = data.orders_by_area;
+                    old_orders_by_area = data.orders_by_area;
+                    var keys = Object.keys(orders_by_area);
+                    keys.forEach(function(key){
+                      l.push(key);
+                      v.push(parseInt(orders_by_area[key]))
+                    });
+                const doughnutChart = new Chart(document.getElementById('doughnutChart'), {
+                  type: 'pie',
+                  data: {
+                    labels: l,
+                    datasets: [
+                      {
+                        data: v,
+                        backgroundColor: ['#BEE9E8', '#62B6CB', '#1B4965','#CAE9FF','#5FA8D3'],
+                        hoverBackgroundColor: colors.primaryDark,
+                        borderWidth: 0,
+                        weight: 0.5,
+                      },
+                    ],
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                      position: 'bottom',
+                    },
+
+                    title: {
+                      display: false,
+                    },
+                    animation: {
+                      animateScale: true,
+                      animateRotate: true,
+                    },
+                  },
+                })
+              }
+              if(!(JSON.stringify(old_top5_lowest_time) === JSON.stringify(data.top5_lowest_time))){
+                let l3 = [];
+                    let v3 = [];
+                    let top5_lowest_time = data.top5_lowest_time;
+                    old_top5_lowest_time = data.top5_lowest_time;
+                    var keys = Object.keys(top5_lowest_time);
+                    keys.forEach(function(key){
+                      l3.push(key);
+                      v3.push(parseInt(top5_lowest_time[key]))
+                    });
+                const activeUsersChart = new Chart(document.getElementById('activeUsersChart'), {
+                  type: 'bar',
+                  data: {
+                    labels: l3,
+                    datasets: [
+                      {
+                        data: v3,
+                        backgroundColor: colors.primary,
+                        borderWidth: 0,
+                        categoryPercentage: 1,
+                      },
+                    ],
+                  },
+                  options: {
+                    scales: {
+                      yAxes: [
+                        {
+                          ticks: {
+                            beginAtZero: true,
+                            stepSize: 10,
+                            fontSize: 12,
+                            fontColor: '#97a4af',
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 5,
+                          },
+                        },
+                      ],
+                      xAxes: [
+                        {
+                          ticks: {
+                            fontSize: 12,
+                            fontColor: '#97a4af',
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 1,
+                          },
+                          categoryPercentage: 0.5,
+                          maxBarThickness: '30',
+                        },
+                      ],
+                    },
+                    cornerRadius: 2,
+                    maintainAspectRatio: false,
+                    legend: {
+                      display: false,
+                    },
+                  },
+                })
+              }
+              if(!(JSON.stringify(old_orders_by_time) === JSON.stringify(data.orders_by_time))){
+                let l4 = [];
+                    let v4 = [];
+                    let orders_by_time = data.orders_by_time;
+                    old_orders_by_time = data.orders_by_time
+                    var keys = Object.keys(orders_by_time);
+                    keys.forEach(function(key){
+                      l4.push(key);
+                      v4.push(parseInt(orders_by_time[key]))
+                    });
+                const lineChart = new Chart(document.getElementById('lineChart'), {
+                  type: 'line',
+                  data: {
+                    labels: l4,
+                    datasets: [
+                      {
+                        data: v4,
+                        fill: false,
+                        borderColor: colors.primary,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                      },
+                    ],
+                  },
+                  options: {
+                    responsive: true,
+                    scales: {
+                      yAxes: [
+                        {
+                          gridLines: false,
+                          ticks: {
+                            beginAtZero: false,
+                            stepSize: 10,
+                            fontSize: 10,
+                            fontColor: '#97a4af',
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 30,
+                          },
+                        },
+                      ],
+                      xAxes: [
+                        {
+                          gridLines: false,
+                          ticks: {
+                            beginAtZero: false,
+                            stepSize: 10,
+                            fontSize: 12,
+                        
+                            fontFamily: 'Open Sans, sans-serif',
+                            padding: 5,
+                          }
+                        },
+                      ],
+                    },
+                    maintainAspectRatio: false,
+                    legend: {
+                      display: false,
+                    },
+                    tooltips: {
+                      hasIndicator: true,
+                      intersect: false,
+                    },
+                  },
+                })
+              }
+
+
+              })
+        }
+      window.addEventListener('load', function () {
+      // Your document is loaded.
+      var fetchInterval = 1000; // 5 seconds.
+
+      // Invoke the request every 5 seconds.
+      setInterval(fetchStatus, fetchInterval);
+    });
+
+    </script>
+
     <script>
 
       // All javascript code in this project for now is just for demo DON'T RELY ON IT

@@ -111,6 +111,15 @@ function generateRandomOrderToday(i) {
       cheese: Math.random() < 0.5 ? 'Yes' : 'No',
       peppers: Math.random() < 0.3 ? 'Yes' : 'No',
       tomato: Math.random() < 0.6 ? 'Yes' : 'No',
+
+      pineapple: Math.random() < 0.5 ? 'Yes' : 'No',
+      greenpeppers: Math.random() < 0.7 ? 'Yes' : 'No',
+      pepperoni: Math.random() < 0.2 ? 'Yes' : 'No',
+      blackolives: Math.random() < 0.3 ? 'Yes' : 'No',
+      bulgarit: Math.random() < 0.3 ? 'Yes' : 'No',
+      tuna: Math.random() < 0.5 ? 'Yes' : 'No',
+      cheesemix: Math.random() < 0.3 ? 'Yes' : 'No',
+      harifpeppers: Math.random() < 0.6 ? 'Yes' : 'No',
     };
   
     return order;
@@ -119,7 +128,7 @@ function generateRandomOrderToday(i) {
 async function produceMessage() {
     await producer.connect()
     console.log('Producer connected')
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < 60; i++) {
         const d =generateRandomOrderToday(i)
         await producer.send({
         topic: 'yqgypzag-pizza',

@@ -34,5 +34,27 @@ const get_main_page = async (req, res) =>{
 
     });
 }
+const get_main_page_json = async (req, res) =>{
+    const t5a = await get_top5_add()
+    const t5r = await get_regins()
+    const t5c = await get_top5_city()
+    const t2d = await get_times_today()
+    var a_o = await get_today_amount()
+    const u_o = await get_open_orders()
+    var a_t = await get_avarge()
+    const o_s = await get_stores_amount()
+    const t = await get_update_time();
+    a_t = Math.floor(a_t/a_o)
+    res.json({top5_adds: t5a,
+                                                    orders_by_area: t5r,
+                                                    top5_lowest_time: t5c,
+                                                    orders_by_time: t2d,
+                                                    all_orders: a_o,
+                                                    unfinished: u_o,
+                                                    avarege: a_t,
+                                                    open_stores: o_s,
+                                                    time_now: t
 
-module.exports = get_main_page
+    });
+}
+module.exports = {get_main_page, get_main_page_json}

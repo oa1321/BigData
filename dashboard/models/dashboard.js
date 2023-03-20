@@ -24,7 +24,17 @@ async function get_top5_add(){
     const top6 = await client.get('cheese')
     const top7 = await client.get('peppers')
     const top8 = await client.get('tomato')
-    tops = [[top1,'olives'],[top2,'corn'],[top3,'mushrooms'],[top4,'anshoby'],[top5,'onions'],[top6,'cheese'],[top7,'peppers'],[top8,'tomato']]
+
+    const top11 = await client.get('pineapple')
+    const top21 = await client.get('greenpeppers')
+    const top31 = await client.get('pepperoni')
+    const top41 = await client.get('blackolives')
+    const top51 = await client.get('bulgarit')
+    const top61 = await client.get('tuna')
+    const top71 = await client.get('cheesemix')
+    const top81 = await client.get('harifpeppers')
+    tops = [[top1,'olives'],[top2,'corn'],[top3,'mushrooms'],[top4,'anshoby'],[top5,'onions'],[top6,'cheese'],[top7,'peppers'],[top8,'tomato']
+,[top11,'pineapple'],[top21,'greenpeppers'],[top31,'pepperoni'],[top41,'blackolives'],[top51,'bulgarit'],[top61,'tuna'],[top71,'cheesemix'],[top81,'harifpeppers']]
     tops.sort((a, b) => { 
         
     if (parseInt(a[0]) > parseInt(b[0]) ){
@@ -53,15 +63,19 @@ async function get_top5_city(){
     // Loop through each city name in the array
     for (const city of cities) {
         // Get the value for the city using the Redis client
-        var x = await client.get(city);
+        var x = parseInt(await client.get(city));
+        var y = parseInt(await client.get(city+"_time"));
         // Push the city-value pair to the array
-        cityValues.push([city, x]);
+        if(x != 0 ){
+             cityValues.push([city, x/y]);
+        }
+       
     }
     // Sort the array by the second value in the pair (ascending order)
-    cityValues.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
+    cityValues.sort((a, b) => a[1]-b[1]);
     // Define an empty object to store the city-value pairs
     const lowestCityValues = {};
-
+    
     // Loop through the first 5 elements in the sorted cityValues array
     for (let i = 0; i < Math.min(5, cityValues.length); i++) {
     // Get the city name and value from the current element
@@ -70,7 +84,6 @@ async function get_top5_city(){
     // Add the city-value pair to the lowestCityValues object
     lowestCityValues[city] = value.toString();
     }
-    // Print the lowestCityValues object to the console
     return lowestCityValues;
 }
 async function get_regins(){

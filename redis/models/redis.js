@@ -36,10 +36,17 @@ async function gen_ramdom_data(req,res){
   client.set('anshoby', Math.floor(Math.random() * RAND))
   client.set('onions', Math.floor(Math.random() * RAND))
   client.set('cheese', Math.floor(Math.random() * RAND))
-  client.set('cheese', Math.floor(Math.random() * RAND))
   client.set('peppers', Math.floor(Math.random() * RAND))
   client.set('tomato', Math.floor(Math.random() * RAND))
 
+  client.set('pineapple', Math.floor(Math.random() * RAND))
+  client.set('greenpeppers', Math.floor(Math.random() * RAND))
+  client.set('pepperoni', Math.floor(Math.random() * RAND))
+  client.set('blackolives', Math.floor(Math.random() * RAND))
+  client.set('bulgarit', Math.floor(Math.random() * RAND))
+  client.set('tuna', Math.floor(Math.random() * RAND))
+  client.set('cheesemix', Math.floor(Math.random() * RAND))
+  client.set('harifpeppers', Math.floor(Math.random() * RAND))
 
   // cities
   const cities = ["Jerusalem", "TelAviv", "Haifa", "RishonLeZion",

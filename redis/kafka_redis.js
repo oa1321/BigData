@@ -52,6 +52,31 @@ async function data_unfinished(data){
   if(data.tomato == 'Yes'){
     client.incr('tomato')
   }
+
+  if(data.pineapple == 'Yes'){
+    client.incr('pineapple')
+  }
+  if(data.greenpeppers == 'Yes'){
+    client.incr('greenpeppers')
+  }
+  if(data.pepperoni == 'Yes'){
+    client.incr('pepperoni')
+  }
+  if(data.blackolives == 'Yes'){
+    client.incr('blackolives')
+  }
+  if(data.bulgarit == 'Yes'){
+    client.incr('bulgarit')
+  }
+  if(data.tuna == 'Yes'){
+    client.incr('tuna')
+  }
+  if(data.cheesemix == 'Yes'){
+    client.incr('cheesemix')
+  }
+  if(data.harifpeppers == 'Yes'){
+    client.incr('harifpeppers')
+  }
   const regins = ["חיפה", "דן", "מרכז", "צפון", "דרום"]; 
   if(data.area === 'Center'){
     client.incr("מרכז")
@@ -93,15 +118,8 @@ async function data_unfinished(data){
 async function data_finished(data){
   client.decr('open_orders')
   client.incrBy('avarage_time',data.fin_time)
-  var avarge_calc = await client.get(data.store_name)
-  var avarge_calc2 = await client.get(data.store_name+'_time')
-  total = avarge_calc * avarge_calc2 + data.fin_time
-  if (total > 90){
-    total /= 2
-  }
-  console.log(total/(avarge_calc2), avarge_calc,avarge_calc2)
   client.incr(data.store_name+'_time')
-  client.set(data.store_name, total/(avarge_calc2))
+  client.incrBy(data.store_name, data.fin_time)
 }
 async function update_data(data){
   data_unfinished(data)
